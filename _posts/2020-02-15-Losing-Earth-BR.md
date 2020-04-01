@@ -9,7 +9,7 @@ image: images/.png
 author: Ita Ćirović Donev
 ---
 
-# Losing Earth
+### Losing Earth
 by Nathaniel Rich
 
 Last year I read the Uninhabitable Earth by David Wallace-Wells, which halfway through felt like an ice shower being on a circular loop. By the time I reached the end of the book, I felt so horrible for all the children and the "gift" we are so proudly giving, the wrecked planet. What an inheritance! I bet none of them would love us more for it. Then I picked up this book, Losing Earth: The Decade We Could Have Stopped Climate Change, which judging by the title will provide for yet another icy shower. Long story short, it did not disappoint. 

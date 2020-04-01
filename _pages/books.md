@@ -4,4 +4,4 @@ title: Book Reviews
 permalink: /books/
 ---
 
-![](/images/books/Letters_from_an_astrophysicist.jpg)
+![]({{ site.baseurl }}/images/books/Letters_from_an_astrophysicist.jpg "fast.ai's logo")

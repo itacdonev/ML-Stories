@@ -1,5 +1,5 @@
 ---
-title: "Letters from an Astrophysicist"
+title: "Letters from an Astrophysicist (Book Review)"
 description: "Book Review"
 toc: false
 comments: false
@@ -9,10 +9,10 @@ image: /images/books/Letters_from_an_astrophysicist.jpg
 author: Ita Ćirović Donev
 ---
 
-# Book Review - Letters from an Astrophysicist
+# Letters from an Astrophysicist
 by Neil deGrasse Tyson
 
-**Score**: ****
+**Score**: 4/5
 
 A new book by Neil deGrasse Tyson always lures me back into the bookstore, and this one is no exception. Letters from an Astrophysicist provides a structurally different book. Here we are privileged to get a view of multidimensional opinions and questions swirling around in our society, paired together with answers which embrace science diplomacy at its best. And all of this in an almost forgotten practice of correspondence of letter writing.
 
