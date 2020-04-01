@@ -1,6 +1,6 @@
 ---
-title: "Book Review: Letters from an Astrophysicist by Neil deGrasse Tyson"
-description: "Book Review"
+title: "Science Diplomacy, a New Field?"
+description: "Book Review: Letters from an Astrophysicist by Neil deGrasse Tyson"
 toc: false
 comments: false
 layout: post
