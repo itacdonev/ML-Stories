@@ -5,7 +5,7 @@ toc: false
 comments: false
 layout: post
 categories: [books, markdown]
-image: images/.png
+image: /images/books/Letters_from_an_astrophysicist.jpg
 author: Ita Ćirović Donev
 ---
 
