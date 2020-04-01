@@ -1,5 +1,5 @@
 ---
-title: "Letters from an Astrophysicist by Neil deGrasse Tyson"
+title: "Letters from an Astrophysicist"
 description: "Book Review"
 toc: false
 comments: false

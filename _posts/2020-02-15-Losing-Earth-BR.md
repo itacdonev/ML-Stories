@@ -1,5 +1,5 @@
 ---
-title: "Losing Earth - A Greek tragedy in the 20th century"
+title: "*Losing Earth* - A Greek tragedy in the 20th century"
 description: "Book Review"
 toc: false
 comments: false
