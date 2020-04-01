@@ -10,6 +10,12 @@ permalink: /books/
 
 proba
 
+<style>
+table, th, td {
+  border: 0px solid black;
+}
+</style>
+
 <table style="width:100%">
   <tr>
     <td><img src="../images/books/Letters_from_an_astrophysicist.jpg" alt="Letters from an Astrophysicist"></th>
