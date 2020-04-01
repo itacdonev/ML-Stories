@@ -1,3 +1,14 @@
+---
+title: "Letters from an Astrophysicist by Neil deGrasse Tyson"
+description: "Book Review"
+toc: false
+comments: false
+layout: post
+categories: [books, markdown]
+image: images/.png
+author: Ita Ćirović Donev
+---
+
 # Book Review - Letters from an Astrophysicist
 by Neil deGrasse Tyson
 
