@@ -1,4 +1,5 @@
-# Book Review - Letters from an Astrophysicist by Neil deGrasse Tyson
+# Book Review - Letters from an Astrophysicist
+by Neil deGrasse Tyson
 
 **Score**: ****
 
