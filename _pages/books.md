@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Books
+title: Book Reviews
 permalink: /books/
 ---
 
-# Book reviews
 
