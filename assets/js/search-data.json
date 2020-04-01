@@ -3,7 +3,7 @@
     
         "post0": {
             "title": "Introduction",
-            "content": "The comment #hide_input was used to hide the code that produced this. . #collapse-hide import pandas as pd #import altair as alt . . #collapse-show cars = &#39;https://vega.github.io/vega-datasets/data/cars.json&#39; movies = &#39;https://vega.github.io/vega-datasets/data/movies.json&#39; sp500 = &#39;https://vega.github.io/vega-datasets/data/sp500.csv&#39; stocks = &#39;https://vega.github.io/vega-datasets/data/stocks.csv&#39; flights = &#39;https://vega.github.io/vega-datasets/data/flights-5k.json&#39; . . # proba .",
+            "content": "The comment #hide_input was used to hide the code that produced this. . import pandas as pd #import altair as alt . cars = &#39;https://vega.github.io/vega-datasets/data/cars.json&#39; movies = &#39;https://vega.github.io/vega-datasets/data/movies.json&#39; sp500 = &#39;https://vega.github.io/vega-datasets/data/sp500.csv&#39; stocks = &#39;https://vega.github.io/vega-datasets/data/stocks.csv&#39; flights = &#39;https://vega.github.io/vega-datasets/data/flights-5k.json&#39; .",
             "url": "https://itacdonev.github.io/ML-Stories/2020/03/20/My-First-Post.html",
             "relUrl": "/2020/03/20/My-First-Post.html",
             "date": " • Mar 20, 2020"
