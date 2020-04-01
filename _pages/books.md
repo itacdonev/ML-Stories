@@ -4,7 +4,7 @@ title: Book Reviews
 permalink: /books/
 ---
 
- ![](../images/books/Letters_from_an_astrophysicist.jpg)![](../images/books/Losing_earth.jpg)
+ ![](../images/books/Letters_from_an_astrophysicist.jpg)  ![](../images/books/Losing_earth.jpg)
 
 staro
 
