@@ -5,7 +5,7 @@ toc: false
 comments: false
 layout: post
 categories: [books, markdown]
-image: images/.png
+image: /images/books/Losing_earth.jpg
 author: Ita Ćirović Donev
 ---
 
