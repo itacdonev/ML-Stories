@@ -28,8 +28,8 @@
 
   
       ,"page3": {
-          "title": "Books",
-          "content": "Book reviews .",
+          "title": "Book Reviews",
+          "content": "",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
           "relUrl": "/books/",
           "date": ""
