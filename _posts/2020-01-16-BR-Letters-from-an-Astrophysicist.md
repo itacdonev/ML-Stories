@@ -1,5 +1,5 @@
 ---
-title: "Science Diplomacy, a New Field?"
+title: "Science diplomacy, a new field?"
 description: "Book Review: Letters from an Astrophysicist by Neil deGrasse Tyson"
 toc: false
 comments: false
