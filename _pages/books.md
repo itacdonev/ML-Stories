@@ -17,6 +17,4 @@ table, td {
 <table id = "table">
   <tr>
     <td><img src="../images/books/Letters_from_an_astrophysicist.jpg" alt="Letters from an Astrophysicist"></td>
-    <td><img src="../images/books/Losing_earth.jpg" alt="Losing Earth"><td> 
-  </tr>
-</table>
+    <td><img src="../images/books/Losing_earth.jpg" alt="Losing Earth"><td>
