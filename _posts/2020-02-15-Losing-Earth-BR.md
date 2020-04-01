@@ -27,6 +27,6 @@ To end the review, I will borrow a quote from dr. Tyson's latest book The Letter
 
 > *"One objective reality is that our government doesn't work, not because we have dysfunctional politicians, but because we have dysfunctional voters. As a scientist and educator, my goal, then, is not to become President and lead a dysfunctional electorate, but to enlighten the electorate so they might choose the right leaders in the first place."*
 
-**References**
-Rich, Nathaniel (2020). *Losing Earth: A Climate History*. PICADOR.
-Tyson, N. D. G. (2019). *Letters from an astrophysicist*. New York: W. W. Norton & Company.
+#### References
+Rich, Nathaniel (2020). *Losing Earth: A Climate History*. PICADOR.  
+Tyson, N. D. G. (2019). *Letters from an astrophysicist*. New York: W. W. Norton & Company.  
