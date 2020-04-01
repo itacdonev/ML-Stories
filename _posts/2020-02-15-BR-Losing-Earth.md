@@ -1,6 +1,6 @@
 ---
-title: "Book Review: Losing Earth by Nathaniel Rich"
-description: "Book Review"
+title: "A Greek tragedy in the 20th century"
+description: "Book Review: Losing Earth by Nathaniel Rich"
 toc: false
 comments: false
 layout: post
@@ -10,8 +10,6 @@ author: Ita Ćirović Donev
 ---
 
 **Score**: 4/5
-
-## A Greek tragedy in the 20th century
 
 Last year I read the Uninhabitable Earth by David Wallace-Wells, which halfway through felt like an ice shower being on a circular loop. By the time I reached the end of the book, I felt so horrible for all the children and the "gift" we are so proudly giving, the wrecked planet. What an inheritance! I bet none of them would love us more for it. Then I picked up this book, Losing Earth: The Decade We Could Have Stopped Climate Change, which judging by the title will provide for yet another icy shower. Long story short, it did not disappoint. 
 
