@@ -13,18 +13,7 @@ proba
 
 <table style="width:100%">
   <tr>
-    <th>Firstname</th>
-    <th>Lastname</th> 
-    <th>Age</th>
-  </tr>
-  <tr>
-    <td>Jill</td>
-    <td>Smith</td> 
-    <td>50</td>
-  </tr>
-  <tr>
-    <td>Eve</td>
-    <td>Jackson</td> 
-    <td>94</td>
+    <th><img src="../images/books/Letters_from_an_astrophysicist.jpg" alt="Letters from an Astrophysicist"></th>
+    <th><img src="../images/books/Losing_earth.jpg" alt="Losing Earth"><th> 
   </tr>
 </table>
