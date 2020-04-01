@@ -51,7 +51,7 @@
   
       ,"page2": {
           "title": "Book Reviews",
-          "content": "| | . proba . Firstname Lastname Age . Jill | Smith | 50 | . Eve | Jackson | 94 | .",
+          "content": "| | . proba . &lt;/tr&gt; &lt;/table&gt; .",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
           "relUrl": "/books/",
           "date": ""
