@@ -1,5 +1,5 @@
 ---
-title: "Losing Earth - A Greek tragedy in the 20th century"
+title: "Book Review: Losing Earth by Nathaniel Rich"
 description: "Book Review"
 toc: false
 comments: false
@@ -9,8 +9,7 @@ image: images/.png
 author: Ita Ćirović Donev
 ---
 
-### Losing Earth
-by Nathaniel Rich
+ ## A Greek tragedy in the 20th century
 
 Last year I read the Uninhabitable Earth by David Wallace-Wells, which halfway through felt like an ice shower being on a circular loop. By the time I reached the end of the book, I felt so horrible for all the children and the "gift" we are so proudly giving, the wrecked planet. What an inheritance! I bet none of them would love us more for it. Then I picked up this book, Losing Earth: The Decade We Could Have Stopped Climate Change, which judging by the title will provide for yet another icy shower. Long story short, it did not disappoint. 
 
@@ -24,7 +23,7 @@ What to do? It is discouraging to think that with all the information, technolog
 
 To end the review, I will borrow a quote from dr. Tyson's latest book The Letters from An Astrophysicist on the question "What if you are President" to which he answers:
 
-*"One objective reality is that our government doesn't work, not because we have dysfunctional politicians, but because we have dysfunctional voters. As a scientist and educator, my goal, then, is not to become President and lead a dysfunctional electorate, but to enlighten the electorate so they might choose the right leaders in the first place."*
+> *"One objective reality is that our government doesn't work, not because we have dysfunctional politicians, but because we have dysfunctional voters. As a scientist and educator, my goal, then, is not to become President and lead a dysfunctional electorate, but to enlighten the electorate so they might choose the right leaders in the first place."*
 
 **References**
 Rich, Nathaniel (2020). *Losing Earth: A Climate History*. PICADOR.
