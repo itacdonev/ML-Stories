@@ -6,8 +6,7 @@
 
 https://itacdonev.github.io/ML-Stories/
 
-# My Blog
-
+# Machine Learning Stories
 
 _powered by [fastpages](https://github.com/fastai/fastpages)_
 
