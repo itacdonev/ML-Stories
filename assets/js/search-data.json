@@ -51,7 +51,7 @@
   
       ,"page2": {
           "title": "Book Reviews",
-          "content": "| | . | &lt;/tr&gt; &lt;/table&gt; | | .",
+          "content": "| | . | | | .",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
           "relUrl": "/books/",
           "date": ""
