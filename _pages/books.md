@@ -4,4 +4,5 @@ title: Book Reviews
 permalink: /books/
 ---
 
-![]({{ site.baseurl }}/images/books/Letters_from_an_astrophysicist.jpg "fast.ai's logo")
+
+[![]({{ site.baseurl }}/images/books/Letters_from_an_astrophysicist.jpg)](https://itacdonev.github.io/ML-Stories/books/markdown/2020/01/28/Letters-from-an-Astrophysicist-BR.html)
