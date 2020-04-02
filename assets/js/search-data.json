@@ -51,7 +51,7 @@
   
       ,"page2": {
           "title": "Book Reviews",
-          "content": "| | . | &lt;/table&gt; proba . Jill | Smith | 50 | . Eve | Jackson | 94 | . John | Doe | 80 | . . | | .",
+          "content": "| | .",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
           "relUrl": "/books/",
           "date": ""
