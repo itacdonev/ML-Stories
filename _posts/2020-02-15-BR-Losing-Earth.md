@@ -4,7 +4,7 @@ description: "Book Review: Losing Earth by Nathaniel Rich"
 toc: false
 comments: false
 layout: post
-categories: [books]
+categories: [book review]
 image: /images/books/Losing_earth.jpg
 author: Ita Ćirović Donev
 ---
