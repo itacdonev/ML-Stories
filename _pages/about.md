@@ -1,13 +1,11 @@
 ---
 layout: page
-title: About Me
+title: About
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+Hello!
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+I'm Ita. This blog mainly gathers my thoughts on things machine learning. Since I adore reading books I will include reiews of my favourite nonfiction books from various fields as I finish reading them.
 
-
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+Enjoy my blog!
