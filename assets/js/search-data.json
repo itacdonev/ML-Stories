@@ -84,7 +84,7 @@
   
       ,"page2": {
           "title": "Book Reviews",
-          "content": "| | .",
+          "content": "| | . Table 4: Table with caption, class and CSS attributes specified | h1 | h2 | h3 | |--|--|--| | abc | def | ghi |",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
           "relUrl": "/books/",
           "date": ""
