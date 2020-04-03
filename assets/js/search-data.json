@@ -84,7 +84,7 @@
   
       ,"page2": {
           "title": "Book Reviews",
-          "content": "| | . Table 4: Table with caption, class and CSS attributes specified | h1 | h2 | h3 | |--|--|--| | abc | def | ghi | Table 6: Table with uncollapsed borders | Name | ID | Favorite Color | ||-|-| | Jim | 00001 | Blue | | Sue | 00002 | Red | | Barb | 00003 | Green |",
+          "content": "| | . Table 4: Table with caption, class and CSS attributes specified | h1 | h2 | h3 | |--|--|--| | abc | def | ghi | Table 6: Table with uncollapsed borders | Name | ID | Favorite Color | ||-|-| | Jim | 00001 | Blue | | Sue | 00002 | Red | | Barb | 00003 | Green | Table 8: Table with 1st row and 1st column highlighted | 1 | 2 | 3 | 4 | 5 | ||-|-|-|-| | 2 | 4 | 6 | 8 | 10 | | 3 | 6 | 9 | 12 | 15 | | 4 | 8 | 12 | 16 | 20 | | 5 | 10 | 15 | 20 | 25 |",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
           "relUrl": "/books/",
           "date": ""
