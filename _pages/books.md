@@ -23,3 +23,27 @@ permalink: /books/
 | abc | def | ghi |
 
 </div>
+
+
+<style>
+.basic-styling td,
+.basic-styling th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+}
+</style>
+
+<div class="ox-hugo-table basic-styling">
+<div></div>
+<div class="table-caption">
+  <span class="table-number">Table 6</span>:
+  Table with uncollapsed borders
+</div>
+
+| Name | ID    | Favorite Color |
+|------|-------|----------------|
+| Jim  | 00001 | Blue           |
+| Sue  | 00002 | Red            |
+| Barb | 00003 | Green          |
+
+</div>
