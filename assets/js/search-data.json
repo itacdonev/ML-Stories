@@ -4,9 +4,9 @@
         "post0": {
             "title": "",
             "content": "If you are in data science you will undoubtedly hear all the great things about Jupyter notebooks. Righly so. I started using notebooks in the RStudio environment and it provided an over encompasing view of the complete process even for persons not sp familiar with the project. Now I almost exclusively use Jupyter lab along with some usefull extensions such as table of contents......... . However, in many cases we want to optimize our machine learning pipeline and dive into modular programming, which rquire writing Pythion scripts and running them in the command line. .",
-            "url": "https://itacdonev.github.io/ML-Stories/2020/04/03/2020-04-03-Run_Python_from_cmd.html",
-            "relUrl": "/2020/04/03/2020-04-03-Run_Python_from_cmd.html",
-            "date": " • Apr 3, 2020"
+            "url": "https://itacdonev.github.io/ML-Stories/2020/04/04/2020-04-03-Run_Python_from_cmd.html",
+            "relUrl": "/2020/04/04/2020-04-03-Run_Python_from_cmd.html",
+            "date": " • Apr 4, 2020"
         }
         
     
@@ -15,9 +15,9 @@
         ,"post1": {
             "title": "",
             "content": "The comment #hide_input was used to hide the code that produced this. . import pandas as pd #import altair as alt . cars = &#39;https://vega.github.io/vega-datasets/data/cars.json&#39; movies = &#39;https://vega.github.io/vega-datasets/data/movies.json&#39; sp500 = &#39;https://vega.github.io/vega-datasets/data/sp500.csv&#39; stocks = &#39;https://vega.github.io/vega-datasets/data/stocks.csv&#39; flights = &#39;https://vega.github.io/vega-datasets/data/flights-5k.json&#39; .",
-            "url": "https://itacdonev.github.io/ML-Stories/2020/04/03/2020-03-20-My-First-Post.html",
-            "relUrl": "/2020/04/03/2020-03-20-My-First-Post.html",
-            "date": " • Apr 3, 2020"
+            "url": "https://itacdonev.github.io/ML-Stories/2020/04/04/2020-03-20-My-First-Post.html",
+            "relUrl": "/2020/04/04/2020-03-20-My-First-Post.html",
+            "date": " • Apr 4, 2020"
         }
         
     
