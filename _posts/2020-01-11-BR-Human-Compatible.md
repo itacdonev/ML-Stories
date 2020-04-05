@@ -26,4 +26,10 @@ I enjoyed the book, which makes for a smooth and light read due to the elegant, 
 
 ### Quotes
 
+> Humans are intelligent to the extent that our actions can be expected to achieve our objectives.
+
+> Machines are beneficial to the extent that their actions can be expected to achieve our objectives.
+
+### References
+Russell, S. (2019). Human Compatible: AI and the Problem of Control. Allen Lane, Penguin Random House, UK.
 

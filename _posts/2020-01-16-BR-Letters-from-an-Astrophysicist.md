@@ -29,8 +29,8 @@ The book was fun to read, refreshing, entertaining, while not requiring previous
 
 > *"Failure is common to us all. But ambitious people use their failures as lessons to heed, as they push forward toward their goals. Don't fear change. Don't fear failure. The only thing to fear is loss of ambition."*
 
-### References
-Tyson, N. D. G. (2019). *Letters from an astrophysicist*. New York: W. W. Norton & Company.  
-
 ### Quotes
 > *"One objective reality is that our government doesn't work, not because we have dysfunctional voters. As a scientist and educator, my goal, then, is not to become President and lead a dysfunctional electorate, but to enlighten the electorate so they might choose the right leaders in the first place."*
+
+### References
+Tyson, N. D. G. (2019). *Letters from an astrophysicist*. New York: W. W. Norton & Company.  
