@@ -9,7 +9,7 @@ image: /images/books/human_compatible.jpg
 author: Ita Ćirović Donev
 ---
 
-**Score**: 5/5
+**Score**: 4/5
 
 The research in AI is growing without the rules or regulations, but with the common goal of achieving the general purpose AI. Do you notice the problem? With many notable achievements in the field, the AI revolution started with many jumping on the high-speed train. It seems as if any project somehow sounds and looks better if we add a pinch of AI to it. But does it? Are we driving blindly? Most likely. Some researchers already ceased their research efforts because the results and methods are being used in a way that is not beneficial to society. If you are one of the passengers on the high-speed train, please take the blindfold off and read this book to be able to act accordingly before your research goes a step too far.
  
