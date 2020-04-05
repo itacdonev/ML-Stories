@@ -7,7 +7,6 @@ layout: post
 categories: [book review]
 image: /images/books/human_compatible.jpg
 author: Ita Ćirović Donev
-hide: false
 ---
 
 **Score**: 4/5
