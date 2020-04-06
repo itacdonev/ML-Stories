@@ -20,7 +20,12 @@ These are visual notes of the book Deep Learning by Goodfello, I., Bengio Y., an
 {:.image-caption}
 *Linear Algebra*
 
+***
 
-<div style="float:left;margin:0 10px 10px 0" markdown="1">
-    ![book]({{ site.baseurl }}/images/DL_Notes/ch2.png)
-</div>
+![]({{ site.baseurl }}/images/DL_Notes/ch1.png){: .align-left}
+Introduction
+{:style="clear: left"}
+
+![]({{ site.baseurl }}/images/DL_Notes/ch2.png){: .align-left}
+Linear Algebra
+{:style="clear: left"}
