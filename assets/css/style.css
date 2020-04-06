@@ -425,6 +425,8 @@ table td { text-overflow: ellipsis; overflow: hidden; max-width: 15em; }
 
 .output_text.output_execute_result pre { white-space: pre-wrap; }
 
+.image-caption { text-align: center; font-size: .8rem; color: light-grey; }
+
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
 .language-python + .language-plaintext { border-left: 1px solid grey; margin-left: 1rem !important; }
