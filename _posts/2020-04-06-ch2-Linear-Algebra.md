@@ -11,6 +11,10 @@ author: Ita Ćirović Donev
 
 # Visual Notes for Deep Learning by Ian Goodfellow
 
-**Introduction** ![Introduction]({{ site.baseurl }}/images/DL_Notes/ch1.png){:height="120px" width="100px"}
+![Introduction]({{ site.baseurl }}/images/DL_Notes/ch1.png){:height="120px" width="100px"}
+{:.image-caption}
+*Introduction*
 
-**Linear Algebra** ![Linear_Algebra]({{ site.baseurl }}/images/DL_Notes/ch2.png){:height="120px" width="100px"}
+![Linear_Algebra]({{ site.baseurl }}/images/DL_Notes/ch2.png){:height="120px" width="100px"}
+{:.image-caption}
+*Linear Algebra*
