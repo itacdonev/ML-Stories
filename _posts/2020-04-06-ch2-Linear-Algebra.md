@@ -12,6 +12,6 @@ author: Ita Ćirović Donev
 # Visual Notes for Deep Learning by Ian Goodfellow
 
 - Introduction
-- Linear Algebra
 
-![]({{ site.baseurl }}/images/DL_Notes/LA_1.png){:height="100px" width="50px"}
+- Linear Algebra 
+![Linear Algebra]({{ site.baseurl }}/images/DL_Notes/LA_1.png){:height="120px" width="100px"}
