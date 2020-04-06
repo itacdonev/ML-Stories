@@ -12,5 +12,5 @@ author: Ita Ćirović Donev
 These are visual notes of the book Deep Learning by Goodfello, I., Bengio Y., and Counrville A.
 
 
-![Introduction]({{ site.baseurl }}/images/DL_Notes/ch1.png){:height="150px" width="120px" .align-left} | ![Linear_Algebra]({{ site.baseurl }}/images/DL_Notes/ch2.png){:height="150px" width="120px" .align-left}
-Introduction | Linear Algebra
+CH1 - Introduction | CH2 - Linear Algebra
+![Introduction]({{ site.baseurl }}/images/DL_Notes/ch1.png){:height="200px" width="150px" .align-left} | ![Linear_Algebra]({{ site.baseurl }}/images/DL_Notes/ch2.png){:height="200px" width="150px" .align-left}
