@@ -427,6 +427,8 @@ table td { text-overflow: ellipsis; overflow: hidden; max-width: 15em; }
 
 .image-caption { text-align: center; font-size: .8rem; color: light-grey; }
 
+.image-callout { float: left; }
+
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
 .language-python + .language-plaintext { border-left: 1px solid grey; margin-left: 1rem !important; }
