@@ -427,7 +427,7 @@ table td { text-overflow: ellipsis; overflow: hidden; max-width: 15em; }
 
 .image-caption { text-align: center; font-size: .8rem; color: light-grey; }
 
-.image-callout { float: left; }
+.image-callout { align-content: flex-start; }
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
