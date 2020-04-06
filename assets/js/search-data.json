@@ -4,8 +4,8 @@
         "post0": {
             "title": "",
             "content": "Score: 4/5 . References .",
-            "url": "https://itacdonev.github.io/ML-Stories/book%20review/2020/02/29/BR-Living-Machines.html",
-            "relUrl": "/book%20review/2020/02/29/BR-Living-Machines.html",
+            "url": "https://itacdonev.github.io/ML-Stories/2020/02/29/BR-Living-Machines.html",
+            "relUrl": "/2020/02/29/BR-Living-Machines.html",
             "date": " • Feb 29, 2020"
         }
         
@@ -26,8 +26,8 @@
         ,"post2": {
             "title": "",
             "content": "Score: 4/5 . References .",
-            "url": "https://itacdonev.github.io/ML-Stories/book%20review/2020/02/02/BR-Why-we-sleep.html",
-            "relUrl": "/book%20review/2020/02/02/BR-Why-we-sleep.html",
+            "url": "https://itacdonev.github.io/ML-Stories/2020/02/02/BR-Why-we-sleep.html",
+            "relUrl": "/2020/02/02/BR-Why-we-sleep.html",
             "date": " • Feb 2, 2020"
         }
         
@@ -58,7 +58,7 @@
     
         ,"post5": {
             "title": "Visual Notes for Deep Learning",
-            "content": "These are visual notes of the book Deep Learning by Goodfello, I., Bengio Y., and Counrville A. . | | . CH1 - Introduction (pdf) | CH2 - Linear Algebra (pdf) | .",
+            "content": "These are visual notes of the book Deep Learning by Goodfello, I., Bengio Y., and Counrville A. . | | . CH1 - Introduction (pdf) | Linear Algebra (pdf) | .",
             "url": "https://itacdonev.github.io/ML-Stories/book%20notes/2019/09/15/ch2-Linear-Algebra.html",
             "relUrl": "/book%20notes/2019/09/15/ch2-Linear-Algebra.html",
             "date": " • Sep 15, 2019"
