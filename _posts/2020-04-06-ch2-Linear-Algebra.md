@@ -11,5 +11,4 @@ author: Ita Ćirović Donev
 
 # Linear Algebra
 
-![](../images/DL_Notes/LA_1.png)
-
+![]({{ site.baseurl }}/images/DL_Notes/LA_1.png)
