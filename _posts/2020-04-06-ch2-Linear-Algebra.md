@@ -9,6 +9,9 @@ image:
 author: Ita Ćirović Donev
 ---
 
-# Linear Algebra
+# Visual Notes for Deep Learning by Ian Goodfellow
 
-![]({{ site.baseurl }}/images/DL_Notes/LA_1.png)
+- Introduction
+- Linear Algebra
+
+![]({{ site.baseurl }}/images/DL_Notes/LA_1.png = 50x100)
