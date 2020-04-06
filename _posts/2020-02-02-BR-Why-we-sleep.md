@@ -4,7 +4,7 @@ description: "Book Review: Why We Sleep by Matthew Walker"
 toc: false
 comments: false
 layout: post
-categories: [book review]
+categories: []
 image: /images/books/why_we_sleep.jpg
 author: Ita Ćirović Donev
 hide: true
