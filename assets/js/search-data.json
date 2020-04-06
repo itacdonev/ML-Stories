@@ -71,7 +71,9 @@
   
 
   
-      ,"page1": {
+
+  
+      ,"page2": {
           "title": "About",
           "content": "Hello! . I’m Ita. This blog mainly gathers my thoughts on things machine learning. Since I adore reading books I will include reiews of my favourite nonfiction books from various fields as I finish reading them. . Enjoy my blog! .",
           "url": "https://itacdonev.github.io/ML-Stories/about/",
@@ -82,7 +84,7 @@
   
 
   
-      ,"page2": {
+      ,"page3": {
           "title": "Book Reviews",
           "content": "| | | .",
           "url": "https://itacdonev.github.io/ML-Stories/books/",
