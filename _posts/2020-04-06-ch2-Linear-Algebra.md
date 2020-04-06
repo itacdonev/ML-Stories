@@ -1,6 +1,6 @@
 ---
 title: "Visual Notes for Deep Learning"
-description: "Visual notes"
+description: "Notes based on Deep Learning by Goodfellow, Bengio, and Courville."
 toc: false
 comments: false
 layout: post
