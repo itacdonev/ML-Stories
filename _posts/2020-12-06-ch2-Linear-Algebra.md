@@ -13,4 +13,4 @@ These are visual notes of the book Deep Learning by Goodfello, I., Bengio Y., an
 
 
 ![Introduction]({{ site.baseurl }}/images/DL_Notes/ch1.png){:height="200px" width="190px" .align-left} | ![Linear_Algebra]({{ site.baseurl }}/images/DL_Notes/ch2.png){:height="200px" width="190px" .align-left}
-:CH1 - Introduction ([pdf](https://github.com/itacdonev/ML-Stories/blob/master/docs/Chapter%201%20-%20Introduction.pdf)):|:CH2 - Linear Algebra ([pdf](https://github.com/itacdonev/ML-Stories/blob/master/docs/Chapter%202%20-%20Linear%20Algebra.pdf)):
+CH1 - Introduction ([pdf](https://github.com/itacdonev/ML-Stories/blob/master/docs/Chapter%201%20-%20Introduction.pdf))|CH2 - Linear Algebra ([pdf](https://github.com/itacdonev/ML-Stories/blob/master/docs/Chapter%202%20-%20Linear%20Algebra.pdf))
