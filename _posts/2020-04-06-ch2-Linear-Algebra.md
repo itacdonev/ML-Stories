@@ -14,4 +14,4 @@ author: Ita Ćirović Donev
 - Introduction
 - Linear Algebra
 
-![]({{ site.baseurl }}/images/DL_Notes/LA_1.png=50x100)
+![]({{ site.baseurl }}/images/DL_Notes/LA_1.png){:height="100px" width="50px"}
