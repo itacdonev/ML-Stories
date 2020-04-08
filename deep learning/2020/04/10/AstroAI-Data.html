@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>UNDERSTANDING KEPLER DATA | Machine Learning Stories</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="UNDERSTANDING KEPLER DATA" />
+<meta name="author" content="Ita Ćirović Donev" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Project: Applying DL methods in exoplanet search" />
+<meta property="og:description" content="Project: Applying DL methods in exoplanet search" />
+<link rel="canonical" href="https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html" />
+<meta property="og:url" content="https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html" />
+<meta property="og:site_name" content="Machine Learning Stories" />
+<meta property="og:image" content="https://itacdonev.github.io/ML-Stories/images/chart-preview.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-10T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Ita Ćirović Donev"},"description":"Project: Applying DL methods in exoplanet search","headline":"UNDERSTANDING KEPLER DATA","dateModified":"2020-04-10T00:00:00-05:00","datePublished":"2020-04-10T00:00:00-05:00","@type":"BlogPosting","image":"https://itacdonev.github.io/ML-Stories/images/chart-preview.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html"},"url":"https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/ML-Stories/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://itacdonev.github.io/ML-Stories/feed.xml" title="Machine Learning Stories" /><link rel="shortcut icon" type="image/x-icon" href="/ML-Stories/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>UNDERSTANDING KEPLER DATA | Machine Learning Stories</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="UNDERSTANDING KEPLER DATA" />
+<meta name="author" content="Ita Ćirović Donev" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Project: Applying DL methods in exoplanet search" />
+<meta property="og:description" content="Project: Applying DL methods in exoplanet search" />
+<link rel="canonical" href="https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html" />
+<meta property="og:url" content="https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html" />
+<meta property="og:site_name" content="Machine Learning Stories" />
+<meta property="og:image" content="https://itacdonev.github.io/ML-Stories/images/chart-preview.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-10T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Ita Ćirović Donev"},"description":"Project: Applying DL methods in exoplanet search","headline":"UNDERSTANDING KEPLER DATA","dateModified":"2020-04-10T00:00:00-05:00","datePublished":"2020-04-10T00:00:00-05:00","@type":"BlogPosting","image":"https://itacdonev.github.io/ML-Stories/images/chart-preview.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html"},"url":"https://itacdonev.github.io/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://itacdonev.github.io/ML-Stories/feed.xml" title="Machine Learning Stories" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/ML-Stories/">Machine Learning Stories</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/ML-Stories/about/">About</a><a class="page-link" href="/ML-Stories/book_reviews/">Book Reviews</a><a class="page-link" href="/ML-Stories/search/">Search</a><a class="page-link" href="/ML-Stories/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">UNDERSTANDING KEPLER DATA</h1><p class="page-description">Project: Applying DL methods in exoplanet search</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-10T00:00:00-05:00" itemprop="datePublished">
+        Apr 10, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Ita Ćirović Donev</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      13 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/ML-Stories/categories/#deep learning">deep learning</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/itacdonev/ML-Stories/tree/master/_notebooks/2020-04-10-AstroAI-Data.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/ML-Stories/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/itacdonev/ML-Stories/blob/master/_notebooks/2020-04-10-AstroAI-Data.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/ML-Stories/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Technical-Preliminaries">Technical Preliminaries </a></li>
+<li class="toc-entry toc-h1"><a href="#INTRODUCTION">INTRODUCTION </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#What-to-Download?">What to Download? </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#DR24-TCE-data">DR24 TCE data </a></li>
+<li class="toc-entry toc-h3"><a href="#Light-curves-for-DR24-TCE-data">Light curves for DR24 TCE data </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Examining-the-Data">Examining the Data </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Target-Labels">Target Labels </a></li>
+<li class="toc-entry toc-h2"><a href="#Light-Curves">Light Curves </a></li>
+<li class="toc-entry toc-h2"><a href="#Ploting-light-curves-(the-shorter-way)">Ploting light curves (the shorter way) </a></li>
+<li class="toc-entry toc-h2"><a href="#Aperture-Data">Aperture Data </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#TFRecord-View---Downloaded-preprocessed-data">TFRecord View - Downloaded preprocessed data </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-04-10-AstroAI-Data.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Technical-Preliminaries">
+<a class="anchor" href="#Technical-Preliminaries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Technical Preliminaries<a class="anchor-link" href="#Technical-Preliminaries"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Enable immediate usage of Python script files</span>
+<span class="o">%</span><span class="k">reload_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+
+<span class="c1"># Plot figures inline</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1">#sys.path.append('/Users/itacdonev/Documents/PROJECTS/AstroAI')</span>
+<span class="c1">#sys.path.append('/Users/itacdonev/Documents/PROJECTS/AstroAI/code')</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['/Users/itacdonev/Documents/PROJECTS/AstroAI/astroai/notebooks',
+ '/Users/itacdonev/anaconda3/envs/astro/lib/python37.zip',
+ '/Users/itacdonev/anaconda3/envs/astro/lib/python3.7',
+ '/Users/itacdonev/anaconda3/envs/astro/lib/python3.7/lib-dynload',
+ '',
+ '/Users/itacdonev/.local/lib/python3.7/site-packages',
+ '/Users/itacdonev/anaconda3/envs/astro/lib/python3.7/site-packages',
+ '/Users/itacdonev/anaconda3/envs/astro/lib/python3.7/site-packages/IPython/extensions',
+ '/Users/itacdonev/.ipython']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'/Users/itacdonev/Documents/PROJECTS/AstroAI/astroai'</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">external.light_curve</span> <span class="kn">import</span> <span class="n">binning</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMORT PACKAGES</span>
+<span class="c1">#------------------------------</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Visualization</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">colored</span><span class="p">,</span> <span class="n">cprint</span>
+
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span> <span class="c1"># Import fits files</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span> <span class="c1"># Converting to tidy data tables</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">enable_eager_execution</span><span class="p">()</span>
+<span class="c1">#------------------------------</span>
+<span class="c1"># Source: Ita Cirovic Donev</span>
+<span class="kn">import</span> <span class="nn">utils</span>
+
+<span class="c1"># Source: Chris Shaulle</span>
+<span class="kn">from</span> <span class="nn">external.light_curve</span> <span class="kn">import</span> <span class="n">kepler_io</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the main data path</span>
+<span class="n">DATA_PATH</span> <span class="o">=</span> <span class="s1">'../data/'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="INTRODUCTION">
+<a class="anchor" href="#INTRODUCTION" aria-hidden="true"><span class="octicon octicon-link"></span></a>INTRODUCTION<a class="anchor-link" href="#INTRODUCTION"> </a>
+</h1>
+<p>In this notebook we will go over the Kepler mission data, which we will later structure and use to train ML and DL models. Goals of this notebook:</p>
+<ul>
+<li>what to download</li>
+<li>how to download</li>
+<li>undertsanding what we have in data</li>
+<li>plotting data</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-to-Download?">
+<a class="anchor" href="#What-to-Download?" aria-hidden="true"><span class="octicon octicon-link"></span></a>What to Download?<a class="anchor-link" href="#What-to-Download?"> </a>
+</h2>
+<p>Given that we want to build a model using the supervised learning algorithm we need a set of labeled data. To detect the potential planet we will be using the <strong>transit</strong> method. From previous notebook we understood what the transit method is. Hence, our training data is based on the light curves of a star and its labeled class.</p>
+<p>Therefore, we need to acquire two sets of data: labeled data and the light curves (time series).</p>
+<ol>
+<li>The labeled TCE data, namely the DR24 TCE table we will obtain from the (<a href="https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&amp;config=q1_q17_dr24_tce">NASA Exoplanet Archive</a>)</li>
+<li>Light curves of the stars corresponding to the DR24 table we can obtained from the (<a href="https://archive.stsci.edu">Mikulski Archive</a>)</li>
+</ol>
+<p>All the data is saved in the folder <code>../data/</code>.</p>
+<h3 id="DR24-TCE-data">
+<a class="anchor" href="#DR24-TCE-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>DR24 TCE data<a class="anchor-link" href="#DR24-TCE-data"> </a>
+</h3>
+<p>The complete description of available data columns can be found in <a href="https://exoplanetarchive.ipac.caltech.edu/docs/API_tce_columns.html">Data Columns in the Kepler TCE Table</a>. From all the available columns, we will download the following:</p>
+<ul>
+<li>
+<code>kepid</code> - Target identification number, as listed in the Kepler Input Catalog (KIC). The KIC was derived from a ground-based imaging survey of the Kepler field conducted prior to launch. The survey's purpose was to identify stars for the Kepler exoplanet survey by magnitude and color. The full catalog of 13 million sources can be searched at the MAST archive. The subset of 4 million targets found upon the Kepler CCDs can be searched via the Kepler Target Search form. The Kepler ID is unique to a target and there is only one Kepler ID per target.</li>
+<li>
+<code>tce_plnt_num</code> - Planet number</li>
+<li>
+<code>tce_period</code> - Orbital period (days): The interval between consecutive planetary transits.</li>
+<li>
+<code>tce_time0bk</code> - Transit Epoch (BJD - 2,454,833.0): The time corresponding to the center of the first detected transit in Barycentric Julian Day (BJD) minus a constant offset of 2,454,833.0 days. The offset corresponds to 12:00 on Jan 1, 2009 UTC.</li>
+<li>
+<code>tce_duration</code> - Transit Duration (hrs): The duration of the observed transits. Duration is measured from first contact between the planet and star until last contact. Contact times are typically computed from a best-fit model produced by a Mandel-Agol (2002) model fit to a multi-quarter Kepler light curve, assuming a linear orbital ephemeris.</li>
+<li>
+<code>av_training_set</code> - Autovetter Training Set Label: If the TCE was included in the training set, the training label encodes what is believed to be the "true" classification, and takes a value of either PC, AFP or NTP. The TCEs in the UNKNOWN class sample are marked UNK. Training labels are given a value of NULL for TCEs not included in the training set. For more detail about how the training set is constructed, see <a href="https://exoplanetarchive.ipac.caltech.edu/docs/KSCI-19091-001.pdf">Autovetter Planet Candidate Catalog</a> for Q1-Q17 Data Release 24 (KSCI-19091).<ul>
+<li>
+<code>PC</code>: planet candidate</li>
+<li>
+<code>AFP</code>: astrophysical false positive</li>
+<li>
+<code>NTP</code>: non-transiting phenomenon</li>
+<li>
+<code>UNK</code>: unknown</li>
+</ul>
+</li>
+<li>
+<code>av_pred_class</code> - Autovetter Predicted Classification: Predicted classifications, which are the "optimum MAP classifications." Values are either PC, AFP, or NTP.</li>
+</ul>
+<p>There are two options to download the data: manually or using the API. For manual download go to <a href="https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&amp;config=q1_q17_dr24_tce">NASA Exoplanet Archive</a> and select the appropriate columns. If you would like to use the API just run the following in your terminal:</p>
+<div class="highlight"><pre><span></span>python -m data.get_tce_data --output_file<span class="o">=</span>dr24_tce_labels.csv
+./get_tce.sh
+</pre></div>
+<p>where for the argument <code>output_file</code> enter the desired file name. The default location for the saved file is <code>../data/</code>. Note that this is run from the main root of the project.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Light-curves-for-DR24-TCE-data">
+<a class="anchor" href="#Light-curves-for-DR24-TCE-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Light curves for DR24 TCE data<a class="anchor-link" href="#Light-curves-for-DR24-TCE-data"> </a>
+</h3>
+<p>The Mikulski archive contains all the Kepler mission data, which as you can image is huge. Since we only have labels for a subset of the dataset, we will just download that specific subset, i.e. the DR24. The process of downloading the is closely followed with the code by Shaulle. We will use the <code>light_curve</code> package and its corresponding py scripts. The light curves are downloaded using the <code>generate_download_script.py</code> from the <code>light_curve</code> package by Schaulle using the <code>get_data.sh</code>by running the following commands:</p>
+<div class="highlight"><pre><span></span>sh get_data.sh
+./get_kepler.sh
+</pre></div>
+<p>The data of 90GB is downloaded in the <code>../data/kepler/</code> folder. Note that the download takes several days.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Examining-the-Data">
+<a class="anchor" href="#Examining-the-Data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examining the Data<a class="anchor-link" href="#Examining-the-Data"> </a>
+</h1>
+<p>Let's see what we have downloaded.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># List all files and folder in DATA_PATH</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Target-Labels">
+<a class="anchor" href="#Target-Labels" aria-hidden="true"><span class="octicon octicon-link"></span></a>Target Labels<a class="anchor-link" href="#Target-Labels"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the data for the target labels</span>
+<span class="n">df_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s1">dr24_tce_labels.csv'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Number of IDs: </span><span class="si">{</span><span class="n">df_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">))</span>
+<span class="n">df_y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The column <code>av_training_set</code> provides the target labels. Let's see how many labels we have:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_y</span><span class="p">[</span><span class="s1">'av_training_set'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are 3600 planet candidates in the training set. We can create a binary target with 1 only for <code>PC</code> target label and 0 for the remaining.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create binary target</span>
+<span class="n">df_y</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_y</span><span class="p">[</span><span class="s1">'av_training_set'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'PC'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In every classification problem we need to check the level of imbalance of the dataset, i.e. the proportion of 1s to the whole dataset. In our example this is equal to:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">check_target</span><span class="p">(</span><span class="n">df_y</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Light-Curves">
+<a class="anchor" href="#Light-Curves" aria-hidden="true"><span class="octicon octicon-link"></span></a>Light Curves<a class="anchor-link" href="#Light-Curves"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let's see the Kepler data on light curves.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Enter which Kepler ID to plot</span>
+<span class="n">KEPLER_ID</span> <span class="o">=</span> <span class="mi">11442793</span> <span class="c1">#Kepler-90</span>
+
+<span class="n">KEPLER_DATA_DIR</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">DATA_PATH</span><span class="si">}</span><span class="s1">kepler/'</span>
+<span class="n">LABEL</span> <span class="o">=</span> <span class="n">df_y</span><span class="p">[</span><span class="n">df_y</span><span class="o">.</span><span class="n">kepid</span> <span class="o">==</span> <span class="n">KEPLER_ID</span><span class="p">][</span><span class="s1">'av_training_set'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,]</span> <span class="c1"># Extract target label</span>
+
+<span class="c1"># Default ploting style</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'ggplot'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get file names for the KEPLER_ID</span>
+<span class="n">file_names</span> <span class="o">=</span> <span class="n">kepler_io</span><span class="o">.</span><span class="n">kepler_filenames</span><span class="p">(</span><span class="n">KEPLER_DATA_DIR</span><span class="p">,</span> <span class="n">KEPLER_ID</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">file_names</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Failed to find .fits files in </span><span class="si">{</span><span class="n">KEPLER_DATA_DIR</span><span class="si">}</span><span class="s1">'</span>
+<span class="n">file_names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The file names have the following format (taken from the <code>light_curve.kepler_io.py</code>):</p>
+<p><code>${kep_id:0:4}/${kep_id}/kplr${kep_id}-${quarter_prefix}_${type}.fits</code></p>
+<p>where:</p>
+<ul>
+<li>
+<code>kep_id</code> is the Kepler id left-padded with zeros to length 9;</li>
+<li>
+<code>quarter_prefix</code> is the filename quarter prefix;</li>
+<li>
+<code>type</code> is one of "llc" (long cadence light curve) or "slc" (short cadence light curve).</li>
+</ul>
+<p>Before plotting the light curves let's examine the <code>*.fits</code> files. To read these files we will need the <code>astropy</code> package. Taking just one <code>*.fits</code> file from <code>file_names</code> and extracting the information contained in the file.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Take the first fits file from file_names</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">file_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fits</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see there are 3 main HUDs or header data units:</p>
+<ul>
+<li>
+<strong>No. 0 (Primary)</strong>: This HDU (Header Data Units) contains meta-data related to the entire file.</li>
+<li>
+<strong>No. 1 (Light curve)</strong>: This HDU contains a binary table that holds data like flux measurements and times. We will extract information from here when we define the parameters for the light curve plot.</li>
+<li>
+<strong>No. 2 (Aperture)</strong>: This HDU contains the image extension with data collected from the aperture. We will also use this to display a bitmask plot that visually represents the optimal aperture used to create the SAP_FLUX column in HDU1.</li>
+</ul>
+<p>For more detailed description of FITS headers please refer to Section 2.1.3. in the <a href="https://archive.stsci.edu/kepler/manuals/archive_manual.pdf#page=17">Kepler Archive Manual</a>.<br>
+Reference: <a href="https://github.com/spacetelescope/notebooks/blob/master/notebooks/MAST/Kepler/Kepler_Lightcurve/kepler_lightcurve.ipynb">MAST Notebook examples</a></p>
+<p>Now, let's see how to extract information from each specific HDU.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>
+    <span class="n">HDU_LC</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s1">'LIGHTCURVE'</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Number of columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">HDU_LC</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'-'</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">HDU_LC</span><span class="p">[:</span><span class="mi">25</span><span class="p">]))</span> <span class="c1"># Show first 25 column information</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also see the actual values of each column:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>
+    <span class="n">LC_table</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s1">'LIGHTCURVE'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+    
+<span class="n">LC_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">LC_table</span><span class="p">)</span>
+<span class="n">LC_table</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># Show first 5 rows</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consulting the <a href="https://archive.stsci.edu/kepler/manuals/archive_manual.pdf#page=16">Kepler Archive Manual</a> (Section 2.3.1.) we need information on the following columns:</p>
+<ul>
+<li>
+<p><strong>TIME</strong> = The time at the mid-point of the cadence in BKJD. Convert to BJD using the following formula
+<code>BJD_i = TIME_i + BJDREFI + BJDREFF</code> where BJDREFI and BJDREFF are keywords in the header.</p>
+</li>
+<li>
+<p><strong>SAP_FLUX</strong> = The flux in units of electrons per second contained in the optimal aperture pixels collected by the spacecraft. This light curve is the output of the PA module in the SOC pipeline.</p>
+</li>
+<li>
+<p><strong>PDCSAP_FLUX</strong> = The flux contained in the optimal aperture in electrons per second after the PDC module has applied its cotrending algorithm to the PA light curve. To better understand how PDC manipulated the light curve, read Section 2.3.1.2 and see the PDCSAPFL keyword in the header.</p>
+</li>
+</ul>
+<p>Each of the .fits files contains data per specific quarter. We need to combine all from each file to plot the complete time series. So lets define <code>flux</code> and <code>time</code> to be the two variables where we will append timestamps and the corresponding flux or the brigthness of the star. Then going through all the <code>file_names</code> using the <code>astropy</code> package we extract data for time and the flux. Note that we will take the column <code>PDCSAP_FLUX</code>. We will get an array with length equal to the number of .fits files, i.e. 14.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flux</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Extract data for time and flux</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_names</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>
+        <span class="n">flux</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="s1">'LIGHTCURVE'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'PDCSAP_FLUX'</span><span class="p">])</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="s1">'LIGHTCURVE'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'TIME'</span><span class="p">])</span>
+        
+<span class="c1"># Print number of observations for each quarter period</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flux</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'N = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see what we have in the <code>flux</code> and <code>time</code> objects:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nan_flux</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flux</span><span class="p">:</span>
+    <span class="c1"># Sum the number of non-finite values from all quarter periods</span>
+    <span class="n">nan_flux</span> <span class="o">+=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'There are </span><span class="si">{</span><span class="n">nan_flux</span><span class="si">}</span><span class="s1"> non-finite values in the timeseries.'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see there are <code>nan</code> values, which we need to clean up before any further analysis. We will use the <code>numpy</code> method <code>logical_and</code> which computes the truth value of x1 AND x2 element-wise, where in our case x1 is <code>time</code> and x2 is <code>flux</code>. As the result we will obtain an array with values <code>[True, False, ... , True]</code> depending on whether both the <code>time</code> and <code>flux</code> for that particular value in the array is a finite value, with <code>True</code> for both finite and <code>False</code> otherwise. Then we will only select the values of the original time series where we obtained <code>True</code> value from the logical check. Hence, we will shorten the time series, but in essence since there were <code>nan</code> values, we didn't have them in the first place. So all is good!</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove non-finite values from the time series array</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux</span><span class="p">)):</span>
+    <span class="n">t_f_finite</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    <span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">t_f_finite</span><span class="p">]</span>
+    <span class="n">flux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">t_f_finite</span><span class="p">]</span>
+    
+    <span class="c1"># Print number of observations for each quarter period</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'N = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">flux</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have the full dataset, i.e. without any non-finite values, let's plot the time series for the selected Kepler ID. For easier readjustments of the figures, let's define some plotting arguments upfront, like color and opacity.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">color</span> <span class="o">=</span> <span class="s1">'#371F72'</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">flux</span><span class="p">),</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (days)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Brigthness'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that the time series for each quarter period is on different scale. <strong>(REVIEW) The differences arise due to the repositioning of the Kepler telescope for the purposes of optimizing the solar panels and accumulating solar energy.</strong> Since we want a one time series we need to rescale all the quarter periods. We will achieve this by dividing the time series with the median of each quarter period. First let's try to plot just one quarter period to see the change in brigthness more clearly.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Divide values in each quarter period by that period's median value</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">flux</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's plot the complete time series again. As we can see the time series is centered at 1 and much easier to read.. Notice the two planets in the figure?</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">flux</span><span class="p">),</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (days)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Brigthness'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Going back to the quarter periods, let's choose one and plot only that time period for more detailed viewing capabilities. To illustrate the structure of light curves better we choose the third quarter period where a clear decrease in brigthness ca be spotted.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># Select the quarter period to plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">q</span><span class="p">],</span> <span class="n">flux</span><span class="p">[</span><span class="n">q</span><span class="p">],</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (days)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Brigthness'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ploting-light-curves-(the-shorter-way)">
+<a class="anchor" href="#Ploting-light-curves-(the-shorter-way)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ploting light curves (the shorter way)<a class="anchor-link" href="#Ploting-light-curves-(the-shorter-way)"> </a>
+</h2>
+<p>Let's plot the light curves for the first 10 Kepler IDs in the dataset using the function <code>view_kepler</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_time</span><span class="p">,</span> <span class="n">all_flux</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_light_curves</span><span class="p">(</span><span class="n">KEPLER_DATA_DIR</span><span class="p">,</span> <span class="n">KEPLER_ID</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">plot_light_curve</span><span class="p">(</span><span class="n">all_time</span><span class="p">,</span> <span class="n">all_flux</span><span class="p">,</span> <span class="n">KEPLER_ID</span><span class="p">,</span> <span class="n">LABEL</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">quarter</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">plot_light_curve</span><span class="p">(</span><span class="n">all_time</span><span class="p">,</span> <span class="n">all_flux</span><span class="p">,</span> <span class="n">KEPLER_ID</span><span class="p">,</span> <span class="n">LABEL</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Combining the data extraction and ploting into one function <code>view_kepler</code> we can use the following one line to get the light curves:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">view_kepler</span><span class="p">(</span><span class="n">KEPLER_DATA_DIR</span><span class="p">,</span> <span class="n">KEPLER_ID</span><span class="p">,</span> <span class="n">LABEL</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's radomly view the Kepler data by chosing, at random, 5 Kepler IDs for which to plot the time series. We will choose the index value of the length of the data set i.e. from the total number of data entries in the TCE labels dataset. Then using the choosen index we extract the ID and the label from <code>kepid</code> and <code>av_training_set</code> columns respectively.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># Number of Kepler ID to plot</span>
+<span class="c1"># Randomly choose n number of IDs</span>
+<span class="nb">list</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_y</span><span class="p">[</span><span class="s1">'kepid'</span><span class="p">]))</span>
+<span class="n">rnd_ids</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Plot light curves for each Kepler ID</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rnd_ids</span><span class="p">:</span>
+    <span class="n">kep_id</span> <span class="o">=</span> <span class="n">df_y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">'kepid'</span><span class="p">]</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">df_y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">'av_training_set'</span><span class="p">]</span>
+    
+    <span class="n">utils</span><span class="o">.</span><span class="n">view_kepler</span><span class="p">(</span><span class="n">KEPLER_DATA_DIR</span><span class="p">,</span> <span class="n">kep_id</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aperture-Data">
+<a class="anchor" href="#Aperture-Data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aperture Data<a class="anchor-link" href="#Aperture-Data"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similarly, we can also explore the <code>APERTURE</code> HDU. The process of reading the data is the same as for the light curves we just select the HDU as follows:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>
+    <span class="n">HDU_APT</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s1">'APERTURE'</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Number of columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">HDU_APT</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'-'</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">HDU_APT</span><span class="p">))</span> <span class="c1"># Show first 25 column information</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Aperture data</span>
+<span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_names</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>
+    <span class="n">apt_data</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s1">'APERTURE'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">apt_data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nrow</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">ncol</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1">#fig, ax = plt.subplots(nrows = nrow, ncols = ncol, figsize = (3,3))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+<span class="c1">#fig.subplots_adjust(hspace = 0.05)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Kepler Apertures for Kepler ID = </span><span class="si">{</span><span class="n">KEPLER_ID</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">file_names</span><span class="p">)):</span>
+    <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">as</span> <span class="n">hdulist</span><span class="p">:</span>
+        <span class="n">apt_data</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="s1">'APERTURE'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+    
+    <span class="c1"># Plot each image</span>
+    <span class="c1">#plt.subplot(2,7, sharex = 'col', sharey = 'row')</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">apt_data</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">YlGnBu_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Quarter period:'</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="TFRecord-View---Downloaded-preprocessed-data">
+<a class="anchor" href="#TFRecord-View---Downloaded-preprocessed-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>TFRecord View - Downloaded preprocessed data<a class="anchor-link" href="#TFRecord-View---Downloaded-preprocessed-data"> </a>
+</h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span> <span class="s1">'tfrecord'</span><span class="p">)</span>
+<span class="n">tf_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tf_path</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="s1">'.tfrecord'</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">tf_path</span><span class="p">)]</span>
+<span class="n">tf_path</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-bab87f60a61c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>tf_path <span class="ansi-blue-fg">=</span> os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span>DATA_PATH<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">'tfrecord'</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> tf_path <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span>tf_path<span class="ansi-blue-fg">,</span>f<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">'.tfrecord'</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> f <span class="ansi-green-fg">in</span> os<span class="ansi-blue-fg">.</span>listdir<span class="ansi-blue-fg">(</span>tf_path<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> tf_path
+
+<span class="ansi-red-fg">NameError</span>: name 'DATA_PATH' is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="s1">'../data/tfrecord/train-00007-of-00008.tfrecord'</span><span class="p">)</span>
+<span class="n">raw_data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">KEPLER_ID</span> <span class="o">=</span> <span class="mi">11442793</span>  <span class="c1"># Kepler-90</span>
+<span class="n">TFRECORD_DIR</span> <span class="o">=</span> <span class="s2">"../data/tfrecord/"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">find_tce</span><span class="p">(</span><span class="n">kepid</span><span class="p">,</span> <span class="n">tce_plnt_num</span><span class="p">,</span> <span class="n">filenames</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">tf</span><span class="o">.</span><span class="n">python_io</span><span class="o">.</span><span class="n">tf_record_iterator</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">ex</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Example</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="s2">"kepid"</span><span class="p">]</span><span class="o">.</span><span class="n">int64_list</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">kepid</span> <span class="ow">and</span>
+                <span class="n">ex</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="s2">"tce_plnt_num"</span><span class="p">]</span><span class="o">.</span><span class="n">int64_list</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">tce_plnt_num</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"Found </span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2"> in file </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kepid</span><span class="p">,</span> <span class="n">tce_plnt_num</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">ex</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2"> not found in files: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kepid</span><span class="p">,</span> <span class="n">tce_plnt_num</span><span class="p">,</span> <span class="n">filenames</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filenames</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">Glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TFRECORD_DIR</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">filenames</span><span class="p">,</span> <span class="s2">"No files found in </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TFRECORD_DIR</span><span class="p">)</span>
+<span class="n">ex</span> <span class="o">=</span> <span class="n">find_tce</span><span class="p">(</span><span class="n">KEPLER_ID</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">filenames</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ex</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="s1">'kepid'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">global_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="s2">"global_view"</span><span class="p">]</span><span class="o">.</span><span class="n">float_list</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="n">local_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="s2">"local_view"</span><span class="p">]</span><span class="o">.</span><span class="n">float_list</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">global_view</span><span class="p">,</span> <span class="s2">"."</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">local_view</span><span class="p">,</span> <span class="s2">"."</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="itacdonev/ML-Stories"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/ML-Stories/deep%20learning/2020/04/10/AstroAI-Data.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/ML-Stories/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/ML-Stories/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/ML-Stories/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Weekly machine learning stories</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/itacdonev" title="itacdonev"><svg class="svg-icon grey"><use xlink:href="/ML-Stories/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.instagram.com/itacdonev" title="itacdonev"><svg class="svg-icon grey"><use xlink:href="/ML-Stories/assets/minima-social-icons.svg#instagram"></use></svg></a></li><li><a rel="me" href="https://twitter.com/itacdonevFM" title="itacdonevFM"><svg class="svg-icon grey"><use xlink:href="/ML-Stories/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
