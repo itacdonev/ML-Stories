@@ -14,21 +14,21 @@
     
         ,"post1": {
             "title": "",
-            "content": "Introduction . In this notebook we will go through the main concepts of pandas library. First, let&#39;s import the pandas library. We use the common alias pd. . import pandas as pd .",
-            "url": "https://itacdonev.github.io/ML-Stories/2020/04/08/2020-02-20-test.html",
-            "relUrl": "/2020/04/08/2020-02-20-test.html",
-            "date": " • Apr 8, 2020"
+            "content": "Score: 4/5 . References .",
+            "url": "https://itacdonev.github.io/ML-Stories/2020/02/29/BR-Living-Machines.html",
+            "relUrl": "/2020/02/29/BR-Living-Machines.html",
+            "date": " • Feb 29, 2020"
         }
         
     
   
     
         ,"post2": {
-            "title": "",
-            "content": "Score: 4/5 . References .",
-            "url": "https://itacdonev.github.io/ML-Stories/2020/02/29/BR-Living-Machines.html",
-            "relUrl": "/2020/02/29/BR-Living-Machines.html",
-            "date": " • Feb 29, 2020"
+            "title": "Pandas: A tutorial",
+            "content": "Introduction . In this notebook we will go through the main concepts of pandas library. First, let&#39;s import the pandas library. We use the common alias pd. . import pandas as pd .",
+            "url": "https://itacdonev.github.io/ML-Stories/tutorial/2020/02/20/test.html",
+            "relUrl": "/tutorial/2020/02/20/test.html",
+            "date": " • Feb 20, 2020"
         }
         
     
